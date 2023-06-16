@@ -354,9 +354,9 @@ public static class ILGeneratorEx
         }
         else
         {
-            var createRealObject = body.Create(OpCodes.Newobj,
-                new MethodReference(".ctor", imports.Module.Void(), convertedReturnType)
-                { Parameters = { new ParameterDefinition(imports.Module.IntPtr()) }, HasThis = true });
+             var createPoolObject = body.Create(OpCodes.Call,
+                imports.Module.ImportReference(new GenericInstanceMethod(imports.Il2CppObjectPool_Get.Value)
+                { GenericArguments = { convertedReturnType } }));
             var endNop = body.Create(OpCodes.Nop);
 
             body.Append(loadPointer);
