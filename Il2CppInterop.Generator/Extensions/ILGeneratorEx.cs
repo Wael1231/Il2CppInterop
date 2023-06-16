@@ -362,12 +362,12 @@ public static class ILGeneratorEx
             body.Append(loadPointer);
             if (extraDerefForNonValueTypes) body.Emit(OpCodes.Ldind_I);
             body.Emit(OpCodes.Dup);
-            body.Emit(OpCodes.Brtrue_S, createRealObject);
+            body.Emit(OpCodes.Brtrue_S, createPoolObject);
             body.Emit(OpCodes.Pop);
             body.Emit(OpCodes.Ldnull);
             body.Emit(OpCodes.Br, endNop);
 
-            body.Append(createRealObject);
+            body.Append(createPoolObject);
             body.Append(endNop);
         }
     }
