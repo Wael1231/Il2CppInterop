@@ -35,6 +35,7 @@ public class RuntimeAssemblyReferences
     public Lazy<MethodReference> IL2CPP_Il2CppStringToManaged { get; private set; }
     public Lazy<MethodReference> IL2CPP_ManagedStringToIl2Cpp { get; private set; }
     public Lazy<MethodReference> Il2CppObjectBase_Cast { get; private set; }
+    public Lazy<MethodReference> Il2CppObjectPool_Get { get; private set; }
     public Lazy<MethodReference> Il2CppObjectBase_TryCast { get; private set; }
     public Lazy<MethodReference> IL2CPP_ResolveICall { get; private set; }
     public Lazy<MethodReference> IL2CPP_il2cpp_gc_wbarrier_set_field { get; private set; }
