@@ -79,6 +79,7 @@ public class RuntimeAssemblyReferences
     public TypeReference Il2CppObjectBase { get; private set; }
     public TypeReference Il2CppStringArray { get; private set; }
     public TypeReference Il2CppArrayBase { get; private set; }
+    public TypeReference Il2CppObjectPool { get; private set; }
     public TypeReference Il2CppStructArray { get; private set; }
     public TypeReference Il2CppReferenceArray { get; private set; }
     public TypeReference Il2CppClassPointerStore { get; private set; }
@@ -110,8 +111,9 @@ public class RuntimeAssemblyReferences
         var assemblyRef = new AssemblyNameReference("Il2CppInterop.Runtime", new Version(0, 0, 0, 0));
         Module.AssemblyReferences.Add(assemblyRef);
 
-        Il2CppObjectBase =
-            new TypeReference("Il2CppInterop.Runtime.InteropTypes", "Il2CppObjectBase", Module, assemblyRef);
+        Il2CppObjectBase =  new TypeReference("Il2CppInterop.Runtime.InteropTypes", "Il2CppObjectBase", Module, assemblyRef);
+        
+        Il2CppObjectPool = new TypeReference("Il2CppInterop.Runtime.Runtime", "Il2CppObjectPool", Module, assemblyRef);
 
         Il2CppStringArray = new TypeReference("Il2CppInterop.Runtime.InteropTypes.Arrays", "Il2CppStringArray", Module,
             assemblyRef);
@@ -143,6 +145,7 @@ public class RuntimeAssemblyReferences
         Il2CppException = new TypeReference("Il2CppInterop.Runtime", "Il2CppException", Module, assemblyRef);
 
         allTypes["Il2CppInterop.Runtime.InteropTypes.Il2CppObjectBase"] = Il2CppObjectBase;
+        allTypes["Il2CppInterop.Runtime.Runtime.Il2CppObjectPool"] = Il2CppObjectPool;
         allTypes["Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStringArray"] = Il2CppStringArray;
         allTypes["Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<T>"] = Il2CppReferenceArray;
         allTypes["Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStructArray<T>"] = Il2CppStructArray;
@@ -221,6 +224,19 @@ public class RuntimeAssemblyReferences
             mr.Parameters.Add(new ParameterDefinition("", ParameterAttributes.None, ResolveType("System.Int64")));
             return mr;
         });
+        
+         Il2CppObjectPool_Get = new Lazy<MethodReference>(() =>
+        {
+            var mr = new MethodReference("Get", Module.Void(),
+                ResolveType("Il2CppInterop.Runtime.Runtime.Il2CppObjectPool"));
+            var gp0 = new GenericParameter("T", mr);
+            mr.GenericParameters.Add(gp0);
+            mr.ReturnType = gp0;
+            mr.HasThis = false;
+            mr.Parameters.Add(new ParameterDefinition("ptr", ParameterAttributes.None, ResolveType("System.IntPtr")));
+            return mr;
+        });
+
 
         IL2CPP_Il2CppObjectBaseToPtr = new Lazy<MethodReference>(() =>
         {
