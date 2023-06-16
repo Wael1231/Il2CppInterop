@@ -78,6 +78,7 @@ namespace Il2CppInterop.Runtime.Injection
             ClassInit ??= FindClassInit();
             FromIl2CppTypeHook.ApplyHook();
             FromNameHook.ApplyHook();
+            RunFinalizerPatch.ApplyHook();
         }
 
         internal static long CreateClassToken(IntPtr classPointer)
